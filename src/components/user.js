@@ -10,25 +10,27 @@ class User extends React.Component {
   }
 
   componentDidMount() {
-    fetch("http://muthuinterview.pythonanywhere.com/user-list/")
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            items: result.items
-          });
-        },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error
-          });
+    fetch("http://localhost:8000/product/")
+            .then(res => res.json())
+            .then(
+              (result) => {
+                console.log(result, "< =  Result");
+                this.setState({
+                  isLoaded: true,
+                  items: result
+                });
+              },
+              // Note: it's important to handle errors here
+              // instead of a catch() block so that we don't swallow
+              // exceptions from actual bugs in components.
+              (error) => {
+                this.setState({
+                  isLoaded: true,
+                  error
+                });
         }
       )
+      console.log(this.state)
   }
 
   render() {
@@ -41,8 +43,8 @@ class User extends React.Component {
       return (
         <ul>
           {items.map(item => (
-            <li key={item.name}>
-              {item.name} {item.price}
+            <Link to={"/prodcut_detail/${itiem.id}"}><li key={item.name}>
+              {item.name} {item.price} </Link>
             </li>
           ))}
         </ul>
